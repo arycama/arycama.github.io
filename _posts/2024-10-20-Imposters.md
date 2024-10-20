@@ -1,4 +1,7 @@
-Optimised Imposter Implementation
+---
+layout: post
+title: "Optimised Imposter Implementation"
+---
 
 Chances are you've heard the term imposters used several times by now. But what exactly are they, and how do they differ from billboards? I don't think there is a strict definition, but imposters are generally more advanced, and attempt to recreate the shading -inputs- of the object they are capturing, such as albedo, normals, and even depth for accurate shadowcasting/receiving, SSAO, etc. Imposters are typically rendered as a camera-facing quad. (However, I will describe another approach below)
 
