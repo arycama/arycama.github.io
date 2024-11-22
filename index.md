@@ -1,5 +1,1 @@
-Here you can say lots of fun things about your site.
-
-Maybe say a some things about yourself.
-
-Or maybe what you plan to blog about.
+Welcome to my blog which will contain various articles on shader and graphpics techniques. I am a programmer from South Australia who specializes in graphics and optimisation, with 7 years of industry experience and have worked on 18 commercial projects across a variety of platforms, engines and studios. I currently work full time for an Adelaide-based studio where we work on worldwide titles with various international studios and partners.
