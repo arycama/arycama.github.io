@@ -1,4 +1,8 @@
-I have worked on the following projects:
+---
+layout: page
+title: Projects
+description: Projects I have worked on
+---
 
 -Unannounced VR Title (2024, Tantalus South)
 -Age of Mythology: Retold (2024, Tantalus South, Windows/Xbox Series)
