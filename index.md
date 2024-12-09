@@ -1,7 +1,1 @@
----
-layout: null
----
-
 Welcome to my blog which will contain various articles on shader and graphics techniques. I am a programmer from South Australia, with 7 years of industry experience, specializing in graphics and optimisation and have worked on 18 commercial projects across a variety of platforms, engines and studios. I currently work full time for an Adelaide-based studio working on AAA titles.
-
-{{ site.posts.first }}
