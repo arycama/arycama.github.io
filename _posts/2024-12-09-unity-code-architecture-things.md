@@ -1,3 +1,8 @@
+---
+layout: post
+title: Unity Dependencies, Singletons, Scene Loading, Factories.. etc
+---
+
 ## Unity Dependencies, Singletons, Scene Loading, Factories.. etc
 
 To manage dependencies, I use additive scene loading and a DependencyResolver component. The first scene to load is the "Global" scene. This will never be unloaded, and contains any systems you want to persist for your entire game. In a basic example, the Global scene contains a "Music Player", a "Global Dependency Resolver", a "Scene Loader" and a "Player Input" GameObject. Each one of these has a respective component. (Or two, eg in the case of Music Player, it also has an AudioSource) I prefer a flexible hierachy of different GameObjects, and usually one per system, instead of one bloated GameManager component or object. The GlobalDependencyResolver is quite simple, it is a list of references to components on objects, in this case, it contains a reference to musicPlayer, SceneLoader, and Player Input.
