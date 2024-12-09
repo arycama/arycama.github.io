@@ -48,7 +48,7 @@ collections:
 
 header_pages:
   - archive.md
-  - about.md
+  - projects.md
 
 defaults:
   - scope:
