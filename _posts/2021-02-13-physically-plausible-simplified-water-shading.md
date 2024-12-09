@@ -7,7 +7,7 @@ Many water shaders I have come across are an ad-hoc combination of many tweakabl
 
 Water shading can be approached as a layered combination of a regular transparent PBR material, and a thick volume of participating media, rendered with volumetric techniques.
 
-[Water Final](/assets/water/water0.png)
+![Water Final](/assets/water/water0.png)
 
 To get started, you will need some water geometry. I use a Compute Shader driven FFT Ocean simulation, which I may cover in another post, but these techniques will work with any water surface, even a flat plane with scrolling normal maps.
 
@@ -17,7 +17,7 @@ We can start with a simple PBR shader with a blue albedo, and a high smoothness 
 surface.Albedo = _Albedo.rgb;
 surface.Smoothness = 1;
 ```
-[Water Solid](/assets/water/water1.png)
+![Water Solid](/assets/water/water1.png)
 It begins to resemble water, however this is mostly due to the geometry and reflections. The surface itself looks like a hard, shiny material. There is no translucency, scattering or color variation, which are key visual indicators of real water. The edge are also very hard and unnatural.
 
 The next step could be to enable alpha blending and give the water an opacity value. However, this needs to depend on the distance of the underlying terrain, otherwise all water will appear uniformly transparent.
@@ -33,7 +33,7 @@ float waterSurfaceDepth = input.positionCS.w;
 float underwaterDepth = backgroundDepth - waterSurfaceDepth;
 surface.Alpha = 1 - exp(-underwaterDepth * _Albedo.a);
 ```
-[Water Transparent](/assets/water/water2.png)
+![Water Transparent](/assets/water/water2.png)
 
 There is now depth-based transparency. However it looks like fog instead of water, this is because the color of the underwater terrain is not modified, only it’s visibility. Water absorption is wavelength dependent, which means we can not rely on alpha-blending to do it for us, as we need separate control over red, green and blue channels.
 
@@ -62,7 +62,7 @@ float3 color = ApplyLighting(surface, input.positionWS);
 // Combine with the tinted underwater surface
 color += background;
 ```
-[Water Translucent](/assets/water/water3.png)
+![Water Translucent](/assets/water/water3.png)
 The underwater surface now has a depth-dependent tint, and smoothly transitions to a pure blue color as depth increases. Shallow water can still remain clear, and specular highlights are retained throughout.
 
 This range of colors is obtained with only two color inputs, albedo and extinction. Extinction is a combination of two physical material properties, scatter and absorption. Albedo is defined as scatter divided by extinction. It is possible to convert physically-measured scattering and absorption values into albedo and extinction, and vice-versa. These inputs can be modified to produce different colored liquids as well.
@@ -127,7 +127,7 @@ Due to the UV offset, it’s possible to sample a pixel that is above water, whi
  // Sample camera texture with UV, which may or may not be offset, depending on above if-statement
  float3 background = _CameraOpaqueTexture.Sample(_LinearClampSampler, refractionUv).rgb;
  ```
-[Water Distorted](/assets/water/water4.png)
+![Water Distorted](/assets/water/water4.png)
 We’re almost done, however there is one more important visual element that you’ll often want to incorporate, which is foam. My ocean system outputs a foam-map, which is derived from the displacements of the geometry. Additional foam is also calculated from the shore waves, using a sawtooth function that lines up with the gerstner waves. The foam is then modulated by a tiling foam texture for detail.
 
 To incorporate foam into our model, we can simply replace the Albedo color with a foam texture, and replace the Alpha with the foam texture’s opacity multiplied by the overall foam strength. As we are handling blending manually, we must also take the foam opacity into account when combining the water and underwater colors. The Roughness of the water can also be increased in foamy areas.
@@ -158,7 +158,7 @@ float foamFactor = foamStrength * foam.a;
  color = ApplyEffects(color, input.positionWS);
  return float4(color, 1);
  ```
-[Water Final](/assets/water/water0.png)
+![Water Final](/assets/water/water0.png)
 The final result combines multiple visual elements of water in a physically-plausible way, ensuring it will look consistent under different lighting conditions. The input parameters are also simple, making it easy to control or modify for different looks or styles.
 
 The shader and screenshots are made with Unity and a custom rendering pipeline, however the techniques should be applicable to any engine or rendering pipeline, including node-based editors.
