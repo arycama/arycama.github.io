@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Unity Dependencies, Singletons, Scene Loading, Factories.. etc
+title: Unity Dependencies, Singletons, Scene Loading, Factories
 ---
 
-## Unity Dependencies, Singletons, Scene Loading, Factories.. etc
+## Unity Dependencies, Singletons, Scene Loading, Factories
 
 To manage dependencies, I use additive scene loading and a DependencyResolver component. The first scene to load is the "Global" scene. This will never be unloaded, and contains any systems you want to persist for your entire game. In a basic example, the Global scene contains a "Music Player", a "Global Dependency Resolver", a "Scene Loader" and a "Player Input" GameObject. Each one of these has a respective component. (Or two, eg in the case of Music Player, it also has an AudioSource) I prefer a flexible hierachy of different GameObjects, and usually one per system, instead of one bloated GameManager component or object. The GlobalDependencyResolver is quite simple, it is a list of references to components on objects, in this case, it contains a reference to musicPlayer, SceneLoader, and Player Input.
 
@@ -31,7 +31,7 @@ The game scene's resolver looks like so :
 
 Nothing too complicated, a general Event System and Canvas for UI, as well as a Player Factory and Mission Controller. Once nice thing about a hierachical scene/system setup is that I don't need to worry too much about cleanup code. The scene can simply be reloaded which will unload everything, and then reloaded which will re-initialize everything, as well as dependencies. Global dependencies (Eg from the global scene) however will remain persistent, as expected.
 
-A note about scene loading, it's important that the dependency for a scene is set before it finishes loading. This can be achieved by callign Scenemanager.LoadSceneAsync, and then immediately afterwards, resolving the scene. Unity scene loads always take at least one frame to complete, so this is safe.
+A note about scene loading, it's important that the dependency for a scene is set before it finishes loading. This can be achieved by calling Scenemanager.LoadSceneAsync, and then immediately afterwards, resolving the scene. Unity scene loads always take at least one frame to complete, so this is safe.
 
 Now about that PlayerFactory, what does it do? It spawns the player of course, but why is this necessary? Well, various components need to be hooked up to the player. For example, UI prefabs displaying text, health, ammo count, a crosshair, etc. I like to keep my UI code seperated from gameplay, so that game code does not have knowledge of UI, but simply exposes read-only variables, such as current ammo etc. So our player factory can create the player, get its weapon component, and then create an AmmoText prefab, passing that weapon as an argument. 
 
@@ -44,10 +44,10 @@ I use static "create" methods as a way of assigning read-only variables on creat
 
 As I add more logic and complexity to my player spawning, I can simply add the extra prefabs/dependencies to PlayerFactory and spawn things as needed.
 
-I also have a MissionController that you may have seen earlier. This could take on other names such as quest manager, game controller, etc.. This simply tracks an active mission (Or missions), updates it, checks for completion, and if so, removes it from the list and invokves its on completion function.
+I also have a MissionController that you may have seen earlier. This could take on other names such as quest manager, game controller, etc.. This simply tracks an active mission (Or missions), updates it, checks for completion, and if so, removes it from the list and invokes its on completion function.
 
 ![](/assets/img6.png)
 
-A mission is made up of a ScriptableObject called "missionData" which contains the objectives, such as collect 5 wood. A second class called an ActiveMission is created at runtime, and this tracks the state of the mission and has the logic. These derive from an abstract mission calss with a simple constructor and Update function. (But no end function, since an Update function returns a true/false bool, indicationg completion. Any completion logic can be done here.
+A mission is made up of a ScriptableObject called "missionData" which contains the objectives, such as collect 5 wood. A second class called an ActiveMission is created at runtime, and this tracks the state of the mission and has the logic. These derive from an abstract mission class with a simple constructor and Update function. (But no end function, since an Update function returns a true/false bool, indicating completion. Any completion logic can be done here.
 
 More to come. (And better examples, sample project etc)
