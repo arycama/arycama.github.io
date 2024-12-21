@@ -9,7 +9,7 @@ I've been using Unity git packages to develop a few different libraries alongsid
 
 Thankfully Visual Studio has added support for managing multiple submodules from a single Visual Studio instance. However, it doesn't quite work out of the box with Unity thanks to the way Unity generates it's files. (And gives us no control over)
 
-First, we need a Unity git package. There are tutorials online for setting up a custom git package for Unity, but I'll cover the basics. First, you'll need to create a github repo. Check this out into the packages directory in your project, and into a subfolder with the format com.<company-name>.<package-name> eg com.arycama.customrenderpipeline. In this folder, create a package.json file, and add some basic details. Check this file for an example: https://github.com/arycama/customrenderpipeline/blob/master/package.json
+First, we need a Unity git package. There are tutorials online for setting up a custom git package for Unity, but I'll cover the basics. First, you'll need to create a github repo. Check this out into the packages directory in your project, and into a subfolder with the format com.<company-name>.<package-name> eg com.arycama.customrenderpipeline. In this folder, create a package.json file, and add some basic details. Check this file for an example: [](https://github.com/arycama/customrenderpipeline/blob/master/package.json)
 
 Open Unity and it should import this package, and you'll see it under your packages directory. You can now add and modify files. (I'll talk more about the solution/Git.csproj files you see below in a minute)
 
@@ -33,7 +33,7 @@ From here, we can simply load the solution file as text, and append the projects
 
 Note that I do a check to make sure the existing text does not already exist. Unity will sometimes call this callback multiple times, so you will get the project added multiple times which will make Visual Studio annoyingly unhappy.
 
-```csharp
+```C#
 using UnityEngine;
 using UnityEditor;
 using System;
