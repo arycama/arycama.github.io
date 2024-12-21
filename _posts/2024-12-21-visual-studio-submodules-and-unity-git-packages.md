@@ -5,7 +5,7 @@ title: Visual Studio Submodules and Unity Git Packages
 
 ## Visual Studio Submodules and Unity Git Packages
 
-I've been using Unity git packages to develop a few different libraries alongside my game projects, such as my Custom Render Pipeline. (https://github.com/arycama/customrenderpipeline) While the setup isn't too complicated, and Unity will automatically pull it into the project/update when needed, developing the pipeline while also developing my project can be a bit tedious, as I'll need to switch back and forth between different visual studio projects to make commits to either one. I also need to ensure that the changes to my package aren't being tracked/included in my main project, and vice versa. 
+I've been using Unity git packages to develop a few different libraries alongside my game projects, such as my [Custom Render Pipeline](https://github.com/arycama/customrenderpipeline). While the setup isn't too complicated, and Unity will automatically pull it into the project/update when needed, developing the pipeline while also developing my project can be a bit tedious, as I'll need to switch back and forth between different visual studio projects to make commits to either one. I also need to ensure that the changes to my package aren't being tracked/included in my main project, and vice versa. 
 
 Thankfully Visual Studio has added support for managing multiple submodules from a single Visual Studio instance. However, it doesn't quite work out of the box with Unity thanks to the way Unity generates it's files. (And gives us no control over)
 
